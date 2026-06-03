@@ -17,7 +17,7 @@ from typing import List, Optional
 import numpy as np
 from ase import Atoms
 from ase.calculators.calculator import Calculator, all_changes
-
+from ase.units import Bohr
 from ase_gxtb.binary import ensure_gxtb_binary
 from ase_gxtb.parser import parse_engrad, parse_charges
 
