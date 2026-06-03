@@ -1,38 +1,25 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools-scm>=8"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "gxtb-ase"
-dynamic = ["version"]
-description = "ASE calculator wrapper for g-xTB"
-authors = [{ name = "Stefan Bringuier", email = "stefanbringuier@gmail.com" }]
-license = {text = "GPL-3.0-or-later"}
+name = "ase-gxtb"
+version = "0.1.0"
+description = "ASE calculator wrapper for the GxTB semiempirical binary"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
+license = "MIT"
+keywords = ["ase", "gxtb", "xtb", "semiempirical", "calculator", "computational-chemistry"]
 dependencies = [
-    "ase>=3.22.0",
-    "numpy>=1.20.0",
+    "ase==3.28.0",
+    "numpy==2.4.6",
 ]
-keywords = ["ase", "quantum-chemistry", "semiempirical", "g-xtb"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-    "Operating System :: POSIX :: Linux",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Chemistry",
-    "Topic :: Scientific/Engineering :: Physics",
-]
+
+[project.scripts]
+gxtb-install = "ase_gxtb.binary:cli_install"
 
 [project.urls]
-Homepage = "https://github.com/stefanbringuier/g-xtb-ase"
-Documentation = "https://github.com/stefanbringuier/g-xtb-ase#readme"
-Repository = "https://github.com/stefanbringuier/g-xtb-ase"
-Issues = "https://github.com/stefanbringuier/g-xtb-ase/issues"
+Source = "https://https://github.com/doublelayer/GxTB-wrapper"
 
-[tool.setuptools_scm] 
+[tool.setuptools.packages.find]
+where = ["src"]
