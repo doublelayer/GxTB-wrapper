@@ -106,11 +106,11 @@ class GXTB(Calculator):
         charges_f = work_dir / "charges"
         log_path  = work_dir / "xtb.out"
 
-        _write_xyz(atoms, work_dir / "struc.xyz")
+        _write_coord(atoms, work_dir / "struc.coord")
 
         cmd = [
             str(binary_path),
-            "struc.xyz",
+            "struc.coord",
             "--gxtb",
             "--grad",
             "--chrg", str(self.parameters.charge),
@@ -153,4 +153,22 @@ def _write_xyz(atoms: Atoms, path: Path) -> None:
     lines = [str(len(atoms)), "ase-gxtb input"]
     for sym, (x, y, z) in zip(symbols, positions):
         lines.append(f"{sym:2s}  {x:20.10f}  {y:20.10f}  {z:20.10f}")
+    path.write_text("\n".join(lines) + "\n")
+
+def _write_coord(atoms: Atoms, path: Path) -> None:
+    symbols = atoms.get_chemical_symbols()
+    positions_bohr = atoms.get_positions() / Bohr
+    cell_bohr = atoms.get_cell().array / Bohr
+    pbc = atoms.get_pbc()
+    periodicity = int(sum(pbc))
+    lines = ["$coord"]
+    for sym, (x, y, z) in zip(symbols, positions_bohr):
+        lines.append(f"  {x:20.10f}  {y:20.10f}  {z:20.10f}  {sym}")
+    if periodicity > 0:
+        lines.append(f"$periodic {periodicity}")
+        lines.append("$lattice")
+        for vector in cell_bohr:
+            x, y, z = vector
+            lines.append(f"  {x:20.10f}  {y:20.10f}  {z:20.10f}")
+    lines.append("$end")
     path.write_text("\n".join(lines) + "\n")
