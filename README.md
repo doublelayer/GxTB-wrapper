@@ -5,7 +5,7 @@ ASE calculator wrapper for the development version of [g-xTB](https://github.com
 ## Installation
 
 ```bash
-git clone --recursive https://github.com/doublelayer/GxTB-wrapper
+git clone https://github.com/doublelayer/GxTB-wrapper
 cd ase-gxtb
 pip install .
 ```
